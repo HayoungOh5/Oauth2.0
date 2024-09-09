@@ -187,62 +187,64 @@ const App = () => {
   };
 
   return (
-    <div>
-      <div className="App">
-        <h1>Google OAuth 2.0 Login</h1>
-        <button onClick={() => getAuthCode(process.env.REACT_APP_GOOGLE_CLIENT_ID)}>
-          Login with Google
-        </button>
-        {/* Auth code */}
-        <div>
-          {authCode ? <h3>✅ Log in</h3> : <h3>⚠️ Before Log in</h3>}
-          <h4>{`Authorization Code : ${authCode}`}</h4>
-        </div>
-        <div>
-          <button onClick={issueToken} style={{ marginRight: '10px' }}>최초 토큰 이슈</button>
-          <button onClick={getNewAccessToken}>새 액세스 토큰</button>
-        </div>
-        <div>
-          <h3>ID token</h3>
-          {idToken ? <p>{idToken}</p> : <p>null</p>}
-          <h3>Access token</h3>
-          {accessToken ? <p>{accessToken}</p> : <p>null</p>}
-          <h3>refresh token</h3>
-          {refreshToken ? <p>{refreshToken}</p> : <p>null</p>}  
-        </div>
-        <div>
-          {/* 검증 요청 버튼 */}
-          <h3>Verify Access Token</h3>
-          <button onClick={verifyAccessTokenByGoogle} style={{ marginRight: '10px' }}>구글 엔드포인트를 통한 Access token검증 요청</button>
-          {/* 검증 결과 표시 */}
-          {accessTokenInfo && (
-          <div>
-            <p>Result of Access Token Validation By Google</p>
-            <pre>{JSON.stringify(accessTokenInfo, null, 2)}</pre>
-          </div>
-          )}
-        </div>
-        <div>
-          {/* 검증 요청 버튼 */}
-          <h3>Verify ID Token</h3>
-          <button onClick={verifyIdTokenByGoogle} style={{ marginRight: '10px' }}>구글 엔드포인트를 통한 id token 검증 요청</button>
-          {/* 검증 결과 표시 */}
-          {idTokenInfo1 && (
-          <div>
-            <p>Result of ID Token Validation By Google</p>
-            <pre>{JSON.stringify(idTokenInfo1, null, 2)}</pre>
-          </div>
-          )}
-          <button onClick={verifyIdTokenByServer} style={{ marginRight: '10px' }}>서버를 통한 id token 검증 요청</button>
-          {/* 검증 결과 표시 */}
-          {idTokenInfo2 && (
-          <div>
-            <p>Result of ID Token Validation By Server</p>
-            <pre>{JSON.stringify(idTokenInfo2, null, 2)}</pre>
-          </div>
-          )}
-        </div>
+    <div className="App">
+      <h1>Google OAuth 2.0 Login</h1>
+      <button onClick={() => getAuthCode(process.env.REACT_APP_GOOGLE_CLIENT_ID)}>
+        Login with Google
+      </button>
+  
+      {/* Auth code */}
+      {authCode ? <h3>✅ Log in</h3> : <h3>⚠️ Before Log in</h3>}
+      <h4>{`Authorization Code: ${authCode}`}</h4>
+  
+      {/* Token issue buttons */}
+      <div>
+        <button onClick={issueToken} style={{ marginRight: '10px' }}>최초 토큰 이슈</button>
+        <button onClick={getNewAccessToken}>새 액세스 토큰</button>
       </div>
+  
+      {/* Token display */}
+      <div>
+        <h3>ID Token</h3>
+        <p>{idToken || 'null'}</p>
+        <h3>Access Token</h3>
+        <p>{accessToken || 'null'}</p>
+        <h3>Refresh Token</h3>
+        <p>{refreshToken || 'null'}</p>
+      </div>
+  
+      {/* Access Token verification */}
+      <h3>Verify Access Token</h3>
+      <button onClick={verifyAccessTokenByGoogle} style={{ marginRight: '10px' }}>
+        구글 엔드포인트를 통한 Access token 검증 요청
+      </button>
+      {accessTokenInfo && (
+        <div>
+          <p>Result of Access Token Validation By Google</p>
+          <pre>{JSON.stringify(accessTokenInfo, null, 2)}</pre>
+        </div>
+      )}
+  
+      {/* ID Token verification */}
+      <h3>Verify ID Token</h3>
+      <button onClick={verifyIdTokenByGoogle} style={{ marginRight: '10px' }}>
+        구글 엔드포인트를 통한 ID Token 검증 요청
+      </button>
+      {idTokenInfo1 && (
+        <div>
+          <p>Result of ID Token Validation By Google</p>
+          <pre>{JSON.stringify(idTokenInfo1, null, 2)}</pre>
+        </div>
+      )}
+      <button onClick={verifyIdTokenByServer} style={{ marginRight: '10px' }}>
+        서버를 통한 ID Token 검증 요청
+      </button>
+      {idTokenInfo2 && (
+        <div>
+          <p>Result of ID Token Validation By Server</p>
+          <pre>{JSON.stringify(idTokenInfo2, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 };
