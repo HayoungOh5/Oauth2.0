@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 // 라우트 설정
-app.use('/api', authRoutes);
+app.use('/', authRoutes);
 
 
 // 서버 실행
