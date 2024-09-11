@@ -30,7 +30,7 @@ const App = () => {
   }, [location.search, navigate]);
 
   const getAuthCode = (clientId) => {
-    const redirectUri = 'http://localhost:8080/api/callback';
+    const redirectUri = 'http://localhost:8080/callback';
     const responseType = 'code'; // Authorization code flow
     const scope = 'openid profile email'; // 요청할 범위
     const accessType = 'offline'; // 리프레시 토큰을 포함하기 위한 옵션
@@ -45,7 +45,7 @@ const App = () => {
   const issueToken = async () => {
     console.log("issue token by code", authCode)
     try {
-      const tokenResponse = await fetch(api + '/api/auth/tokens', {
+      const tokenResponse = await fetch(api + '/auth/tokens', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const App = () => {
   const getNewAccessToken = async () => {
     try {
       // 리프레시 토큰을 요청 본문에 포함
-      const response = await fetch(api + '/api/auth/refresh', {
+      const response = await fetch(api + '/auth/refresh', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch(api + '/api/auth/verify/accesstoken', {
+      const response = await fetch(api + '/auth/verify/accesstoken', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch(api + '/api/auth/verify/idtoken/google', {
+      const response = await fetch(api + '/auth/verify/idtoken/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -164,7 +164,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch(api + '/api/auth/verify/idtoken/server', {
+      const response = await fetch(api + '/auth/verify/idtoken/server', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
