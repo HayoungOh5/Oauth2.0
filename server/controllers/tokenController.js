@@ -21,7 +21,7 @@ exports.getTokens = async (req, res) => {
     code,
     client_id: process.env.GOOGLE_CLIENT_ID,
     client_secret: process.env.GOOGLE_CLIENT_SECRET,
-    redirect_uri: 'http://localhost:8080/api/callback', // 서버 리디렉션 URI
+    redirect_uri: 'http://localhost:8080/callback', // 서버 리디렉션 URI
     grant_type: 'authorization_code'
   });
 
