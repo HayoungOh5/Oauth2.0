@@ -1,10 +1,12 @@
 # Introduction
 
-본 프로젝트는 Google OAuth2.0을 사용한 로그인에 대한 예제 프로젝트입니다. 
+본 프로젝트는 Google OAuth2.0 로그인을 사용하는 서비스에 대한 예제 프로젝트입니다. 
 
-client, server가 모두 구현되어있습니다. (db 파트는 제외). 
+client, server가 모두 구현되어있습니다. (DB는 구현되어있지 않습니다)
 
 예제 프로젝트로써 실제 프로덕트에 바로 적용하기에 보안적으로 권장되지 않습니다.
+
+<br>
 
 ## Client
 React를 사용하여 구현되었습니다. 주요 파일 정보는 다음과 같습니다.
@@ -14,6 +16,8 @@ React를 사용하여 구현되었습니다. 주요 파일 정보는 다음과 �
   - `index.js`: React 애플리케이션의 진입점 파일로, DOM에 React 컴포넌트를 렌더링합니다.
 - `.env`: **레파지토리에서 제공되지 않습니다. `.env_example` 파일을 참고하여 직접 생성하세요.**
 - `package.json`: 프로젝트 디펜던시를 기록해놓은 json 파일입니다.
+
+<br>
 
 ## Server
 Node.js와 Express를 사용하여 구현되었습니다. 주요 파일 정보는 다음과 같습니다.
@@ -32,34 +36,37 @@ Node.js와 Express를 사용하여 구현되었습니다. 주요 파일 정보�
 - `.env`: **레파지토리에서 제공되지 않습니다. `.env_example` 파일을 참고하여 직접 생성하세요.**
 - `package.json`: 프로젝트 디펜던시를 기록해놓은 json 파일입니다.
 
+<br>
 
 ## API Endpoints
 
 서버에서 제공하는 API는 사용자 인증 및 토큰 관리를 위해 아래의 엔드포인트를 제공합니다.
 
-### 1. `GET /callback`
-- **설명**: Google OAuth2.0 인증 후 콜백을 처리하여 인가 코드를 수신합니다.
-- **Controller**: `tokenController.getCode`
+- `GET /callback`
+  - **설명**: Google OAuth2.0 인증 후 콜백을 처리하여 인가 코드를 수신합니다.
+  - **Controller**: `tokenController.getCode`
 
-### 2. `POST /auth/tokens`
-- **설명**: 인가 코드를 통해 액세스 토큰과 리프레시 토큰을 발급받습니다.
-- **Controller**: `tokenController.getTokens`
+- `POST /auth/tokens`
+  - **설명**: 인가 코드를 통해 액세스 토큰과 리프레시 토큰을 발급받습니다.
+  - **Controller**: `tokenController.getTokens`
 
-### 3. `POST /auth/refresh`
-- **설명**: 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급받습니다.
-- **Controller**: `tokenController.refreshToken`
+- `POST /auth/refresh`
+  - **설명**: 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급받습니다.
+  - **Controller**: `tokenController.refreshToken`
 
-### 4. `POST /auth/verify/accesstoken`
-- **설명**: Google의 엔드포인트를 사용하여 액세스 토큰의 유효성을 검증합니다.
-- **Controller**: `authController.verifyAccessToken`
+- `POST /auth/verify/accesstoken`
+  - **설명**: Google의 엔드포인트를 사용하여 액세스 토큰의 유효성을 검증합니다.
+  - **Controller**: `authController.verifyAccessToken`
 
-### 5. `POST /auth/verify/idtoken/google`
-- **설명**: Google의 엔드포인트를 사용하여 ID 토큰의 유효성을 검증합니다.
-- **Controller**: `authController.verifyIdTokenByGoogle`
+- `POST /auth/verify/idtoken/google`
+  - **설명**: Google의 엔드포인트를 사용하여 ID 토큰의 유효성을 검증합니다.
+  - **Controller**: `authController.verifyIdTokenByGoogle`
 
-### 6. `POST /auth/verify/idtoken/server`
-- **설명**: 서버 측에서 JWT를 직접 검증하여 ID 토큰의 유효성을 확인합니다.
-- **Controller**: `authController.verifyIdTokenByServer`
+- `POST /auth/verify/idtoken/server`
+  - **설명**: 서버 측에서 JWT를 직접 검증하여 ID 토큰의 유효성을 확인합니다.
+  - **Controller**: `authController.verifyIdTokenByServer`
+
+<br>
 
 ## 구현 목록
 1. Google OAuth2.0 로그인 (Access token 발급을 위한 Authorization token발급)
@@ -68,9 +75,13 @@ Node.js와 Express를 사용하여 구현되었습니다. 주요 파일 정보�
 4. 구글 엔드포인트를 통한 ID token 검증
 5. Refresh token으로 Access token 재발급
 
+<br>
+
 # 실행
 실행에 앞서 먼저 구글 클라이언트를 생성하여 .env 파일을 작성 해야 합니다. 아래 내용을 참고하세요.
 리액트 페이지의 버튼이 정상 작동하기 위해서는 **항상 server가 켜져** 있어야함을 유의하세요.
+
+<br>
 
 ## Google Cloud Platform (GCP) 설정
 
@@ -84,13 +95,15 @@ Node.js와 Express를 사용하여 구현되었습니다. 주요 파일 정보�
    * "사용자 인증 정보" 섹션에서 "사용자 인증 정보 만들기"를 선택합니다.
    * "OAuth 클라이언트 ID"를 선택합니다.
    * "애플리케이션 유형"으로 "웹 애플리케이션"을 선택합니다.
-   * 승인된 JavaScript 원본에는 다음의 URI를 추가합니다. (세 개 다 추가할 것을 권장):
+   * **승인된 JavaScript 원본**에는 다음의 URI를 추가합니다. (세 개 다 추가할 것을 권장):
      * http://localhost
      * http://127.0.0.1:3000
      * http://localhost:3000
-   * 승인된 리디렉션 URI에는 다음의 URI를 추가합니다:
+   * **승인된 리디렉션 URI**에는 다음의 URI를 추가합니다:
      * http://localhost:8080/callback
    * 생성된 클라이언트 ID와 클라이언트 시크릿을 기록해 둡니다. (.env 파일에 사용)
+
+<br>
 
 ## Client 실행
 
@@ -109,6 +122,7 @@ http://localhost:3000 에서 동작을 확인하실 수 있습니다.
 특히 여러번 반복하여 테스트할때 캐시에 따라 최초 토큰 이슈시 refresh 토큰이 발급되지 않는 경우가 있습니다.
 **시크릿 창 모드**에서 사용하심을 권장드립니다.
 
+<br>
 
 ## Server 실행
 
@@ -122,4 +136,34 @@ npm install
 node index.js
 ```
 
+<br>
+
 ## 사용 예시
+
+### 첫화면
+<img src="https://github.com/user-attachments/assets/1fdcd00c-bdaa-4eb6-964c-1bb2fddf1ce5" width="600"/>
+
+---
+
+### `Log with Google` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/88453f9b-7bba-4f3b-9003-8868bc4d6860" width="600"/>
+<img src="https://github.com/user-attachments/assets/b7da86e2-9327-4ba0-b680-3a30cff7ee16" width="600"/>
+
+### 로그인 성공시
+<img src="https://github.com/user-attachments/assets/b96fa042-1a9f-4acd-bdc0-c68355921472" width="600"/>
+
+### `최초 토큰 이슈` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/7a91487c-81b9-4912-832c-c3a0e579b783" width="600"/>
+
+### `구글 엔드포인트를 통한 Access token 검증 요청` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/4c6fbf2a-b136-497b-b330-431326b8f424" width="600"/>
+
+### `구글 엔드포인트를 통한 ID Token 검증 요청` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/acc0146a-b128-4c5c-9eca-b680a63d2f77" width="600"/>
+
+### `서버를 통한 ID Token 검증 요청` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/6a0b82ff-44b0-493b-a192-31b638009242" width="600"/>
+
+### `새 액세트 토큰` 버튼 클릭시
+<img src="https://github.com/user-attachments/assets/9329be4e-6b84-463b-ba19-642cb39c51cb" width="600"/>
+
